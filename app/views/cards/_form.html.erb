@@ -22,6 +22,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :box %>
+    <%= form.number_field :box %>
+  </div>
+
+  <div class="field">
     <% ActsAsTaggableOn::Tag.all.each do |tag| %>
       <%= form.label tag.name %>
       <%= check_box("card", tag.name, checked: (card.tags.include? tag), class: "checkbox--tag") %>

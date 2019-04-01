@@ -4,7 +4,7 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
+    @cards = Card.all.order("box ASC")
   end
 
   # GET /cards/1
@@ -69,6 +69,6 @@ class CardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
-      params.require(:card).permit(:word, :question, :content, :tag_list)
+      params.require(:card).permit(:word, :question, :content, :box, :tag_list)
     end
 end

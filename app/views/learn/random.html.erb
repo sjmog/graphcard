@@ -5,4 +5,11 @@
   <p><%= @card.content %></p>
 </details>
 
-<%= link_to 'Next', learn_path %>
+<p>How did you do?</p>
+
+<%= form_tag(respace_path(@card), method: 'post') do %>
+  <label for="submit">I got it...</label>
+  <%= submit_tag 'Right, and it was easy' %>
+  <%= submit_tag 'Right, but it was effortful' %>
+  <%= submit_tag 'Wrong' %>
+<% end %>
