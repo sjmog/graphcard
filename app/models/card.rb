@@ -10,8 +10,14 @@ class Card < ApplicationRecord
     'Wrong': -1
   }
 
-  def self.random
-    Card.find(Card.pluck(:id).sample)
+  def self.in_current_repetition
+    all.select do |card|
+      (card.box == 1) ||
+      (card.box == 2 && card.last_viewed_at <= 24.hours.ago) ||
+      (card.box == 3 && card.last_viewed_at <= 10.days.ago)  ||
+      (card.box == 4 && card.last_viewed_at <= 30.days.ago)  ||
+      (card.box == 5 && card.last_viewed_at <= 60.days.ago)
+    end
   end
 
   def respace(result)

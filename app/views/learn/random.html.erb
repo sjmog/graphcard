@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% if @card %>
+
+<p>You have <%= pluralize(@cards.count, 'card') %> to complete in your current repetition.</p>
+
 <details>
   <summary><%= @card.question %></summary>
   <p><%= @card.content %></p>
@@ -12,4 +16,11 @@
   <%= submit_tag 'Right, and it was easy' %>
   <%= submit_tag 'Right, but it was effortful' %>
   <%= submit_tag 'Wrong' %>
+<% end %>
+
+<% else %>
+
+<p>You have no cards to view within your current spaced repetition.</p>
+<p>We'll let you know when you have cards to view!</p>
+
 <% end %>

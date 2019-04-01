@@ -2,7 +2,8 @@ class LearnController < ApplicationController
   # GET /learn
   # GET /learn.json
   def random
-    @card = Card.random
+    @cards = Card.in_current_repetition
+    @card  = @cards.sample
   end
 
   # POST /learn/cards/:id
