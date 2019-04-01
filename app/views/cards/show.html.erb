@@ -1,14 +1,28 @@
 <p id="notice"><%= notice %></p>
 
+<% if @card.word %>
 <p>
-  <strong>Word:</strong>
   <%= @card.word %>
 </p>
+<% end %>
 
+<% if @card.question %>
 <p>
-  <strong>Content:</strong>
+  <%= @card.question %>
+</p>
+<% end %>
+
+<% if @card.content %>
+<p>
   <%= @card.content %>
 </p>
+<% end %>
+
+<% if @card.tags.any? %>
+<p>
+  <%= @card.tag_list %>
+</p>
+<% end %>
 
 <%= link_to 'Edit', edit_card_path(@card) %> |
 <%= link_to 'Back', cards_path %>
