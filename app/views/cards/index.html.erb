@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Word</th>
+      <th>ID</th>
       <th>Question</th>
       <th>Content</th>
       <th>Tags</th>
@@ -16,7 +16,7 @@
   <tbody>
     <% @cards.each do |card| %>
       <tr>
-        <td><%= card.word %></td>
+        <td><%= card.id %></td>
         <td><%= card.question %></td>
         <td><%= card.content %></td>
         <td><%= card.tag_list %></td>
