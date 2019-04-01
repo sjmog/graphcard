@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "cards/edit", type: :view do
   before(:each) do
     @card = assign(:card, Card.create!(
-      :word => "MyString",
       :content => "MyText"
     ))
   end
@@ -12,9 +11,6 @@ RSpec.describe "cards/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", card_path(@card), "post" do
-
-      assert_select "input[name=?]", "card[word]"
-
       assert_select "textarea[name=?]", "card[content]"
     end
   end
