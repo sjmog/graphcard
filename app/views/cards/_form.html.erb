@@ -27,6 +27,10 @@
       <%= check_box("card", tag.name, checked: (card.tags.include? tag), class: "checkbox--tag") %>
     <% end %>
 
+    <p>Or add new tags, comma-space separated e.g. statistics, maths, definitions</p>
+
+    <%= form.text_field :new_tags %>
+
     <%= form.hidden_field :tag_list %>
   </div>
 
