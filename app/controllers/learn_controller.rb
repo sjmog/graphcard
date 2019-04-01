@@ -1,7 +1,7 @@
 class LearnController < ApplicationController
   # GET /learn
   # GET /learn.json
-  def random
+  def current_repetition
     @cards = Card.in_current_repetition
     @card  = @cards.sample
   end
