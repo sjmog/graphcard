@@ -15,7 +15,10 @@ class Card < ApplicationRecord
   end
 
   def respace(result)
-    update(box: box + box_modifier(result))
+    update(
+      box: box + box_modifier(result),
+      last_viewed_at: DateTime.now
+    )
   end
 
   private
