@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Box</th>
+      <th>Will be shown again</th>
       <th>Question</th>
       <th>Content</th>
       <th>Tags</th>
@@ -17,6 +18,7 @@
     <% @cards.each do |card| %>
       <tr>
         <td><%= card.box %></td>
+        <td>within <%= time_ago_in_words(card.next_repetition) %></td>
         <td><%= card.question %></td>
         <td><%= card.content %></td>
         <td><%= card.tag_list %></td>

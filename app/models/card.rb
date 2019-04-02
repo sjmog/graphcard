@@ -27,6 +27,21 @@ class Card < ApplicationRecord
     )
   end
 
+  def next_repetition
+    case box
+    when 1
+      Time.now
+    when 2
+      last_viewed_at <= 24.hours.ago ? Time.now : last_viewed_at + 24.hours
+    when 3
+      last_viewed_at <= 10.days.ago  ? Time.now : last_viewed_at + 10.days
+    when 4
+      last_viewed_at <= 30.days.ago  ? Time.now : last_viewed_at + 30.days
+    when 5
+      last_viewed_at <= 60.days.ago  ? Time.now : last_viewed_at + 60.days
+    end
+  end
+
   private
 
   def box_modifier(result)
