@@ -23,7 +23,15 @@
     <% end %>
 
     <%= link_to 'Learn', learn_path %>
-    <%= link_to 'All cards', cards_path %>
+
+    <% if user_signed_in? %>
+      <%= link_to 'Your cards', cards_path %>
+      <%= link_to 'Settings', edit_user_registration_path(current_user) %>
+      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+    <% else %>
+      <%= link_to('Login', new_user_session_path)  %>  
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
