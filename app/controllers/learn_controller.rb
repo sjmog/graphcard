@@ -4,7 +4,7 @@ class LearnController < ApplicationController
   # GET /learn
   # GET /learn.json
   def current_repetition
-    @cards = current_user.cards.in_current_repetition
+    @cards = current_user.cards_due
     @card  = @cards.sample
   end
 

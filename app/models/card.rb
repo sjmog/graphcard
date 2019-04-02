@@ -11,14 +11,16 @@ class Card < ApplicationRecord
     'Wrong': -1
   }
 
-  def self.in_current_repetition
-    all.select do |card|
-      (card.box == 1) ||
-      (card.box == 2 && card.last_viewed_at <= 24.hours.ago) ||
-      (card.box == 3 && card.last_viewed_at <= 10.days.ago)  ||
-      (card.box == 4 && card.last_viewed_at <= 30.days.ago)  ||
-      (card.box == 5 && card.last_viewed_at <= 60.days.ago)
-    end
+  def self.due
+    select { |card| card.due? }
+  end
+
+  def due?
+    (box == 1) ||
+    (box == 2 && last_viewed_at <= 24.hours.ago) ||
+    (box == 3 && last_viewed_at <= 10.days.ago)  ||
+    (box == 4 && last_viewed_at <= 30.days.ago)  ||
+    (box == 5 && last_viewed_at <= 60.days.ago)
   end
 
   def belongs_to?(user)
