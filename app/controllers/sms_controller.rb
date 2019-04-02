@@ -5,14 +5,15 @@ class SmsController < ApplicationController
     body = params["Body"]
     question = body.split("|")[0]
     answer = body.split("|")[1]
+    tag_list = body.split("|")[2]
 
     user = User.find_by_phone_number(params["From"])
 
-    @card = user.cards.new(question: question, content: answer)
+    @card = user.cards.new(question: question, content: answer, tag_list: tag_list)
 
     if @card.save
       response = Twilio::TwiML::MessagingResponse.new do |resp|
-        resp.message(body: "I created a card for you, #{user.name}!\nQuestion: #{question}\nAnswer: #{answer}\n\nYou can view it here: https://graphcard.herokuapp.com/cards/#{@card.id}")
+        resp.message(body: "I created a card for you, #{user.name}!\nQuestion: #{question}\nAnswer: #{answer}#{"\nTags: #{tag_list}" if tag_list}\n\nYou can view it here: https://graphcard.herokuapp.com/cards/#{@card.id}")
       end
 
       render xml: response.to_s
