@@ -1,5 +1,6 @@
 class Card < ApplicationRecord
   acts_as_taggable
+  belongs_to :user
 
   MAX_BOX = 5
   MIN_BOX = 1
@@ -18,6 +19,10 @@ class Card < ApplicationRecord
       (card.box == 4 && card.last_viewed_at <= 30.days.ago)  ||
       (card.box == 5 && card.last_viewed_at <= 60.days.ago)
     end
+  end
+
+  def belongs_to?(user)
+    user.cards.include?(self)
   end
 
   def respace(result)

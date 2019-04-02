@@ -15,6 +15,13 @@
   </head>
 
   <body>
+    <% if notice %>
+    <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert"><%= alert %></p>
+    <% end %>
+
     <%= link_to 'Learn', learn_path %>
     <%= link_to 'All cards', cards_path %>
     <%= yield %>

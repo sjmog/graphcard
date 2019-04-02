@@ -1,15 +1,17 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all.order("box ASC")
+    @cards = current_user.cards.order("box ASC")
   end
 
   # GET /cards/1
   # GET /cards/1.json
   def show
+    redirect_to cards_path, notice: "That card doesn't belong to you." unless @card.belongs_to?(current_user)
   end
 
   # GET /cards/new
@@ -19,12 +21,13 @@ class CardsController < ApplicationController
 
   # GET /cards/1/edit
   def edit
+    redirect_to cards_path, notice: "That card doesn't belong to you." unless @card.belongs_to?(current_user)
   end
 
   # POST /cards
   # POST /cards.json
   def create
-    @card = Card.new(card_params)
+    @card = Card.new(card_params.merge({ user: current_user }))
 
     respond_to do |format|
       if @card.save
@@ -41,6 +44,11 @@ class CardsController < ApplicationController
   # PATCH/PUT /cards/1.json
   def update
     respond_to do |format|
+      if !@card.belongs_to?(current_user)
+        format.html { redirect_to cards_path, notice: "That card doesn't belong to you." }
+        format.json { render json: { notice: "That card doesn't belong to you." }, status: :unauthorized }
+      end
+
       if @card.update(card_params)
         format.html { redirect_to cards_url, notice: 'Card was successfully updated.' }
         format.json { render :show, status: :ok, location: @card }
@@ -54,10 +62,14 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
-    @card.destroy
     respond_to do |format|
-      format.html { redirect_to cards_url, notice: 'Card was successfully destroyed.' }
-      format.json { head :no_content }
+      if !@card.belongs_to?(current_user)
+        format.html { redirect_to cards_path, notice: "That card doesn't belong to you." }
+        format.json { render json: { notice: "That card doesn't belong to you." }, status: :unauthorized }
+      end
+
+      format.html { @card.destroy; redirect_to cards_url, notice: 'Card was successfully destroyed.' }
+      format.json { @card.destroy; head :no_content }
     end
   end
 
